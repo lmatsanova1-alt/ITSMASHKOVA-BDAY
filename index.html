@@ -96,13 +96,21 @@
             currentScene = sceneKey; const data = story[sceneKey];
             document.getElementById("speaker").innerText = typeof data.speaker === "function" ? data.speaker() : data.speaker;
             document.getElementById("story-text").innerText = data.text();
-            var sp = data.speaker; if (typeof sp === "function") sp = sp();
             document.querySelectorAll('.sprite-box img').forEach(i => i.classList.remove('active'));
-            if (sp === "Лера" || (sp === "Имя" && hero === "Лера")) document.getElementById("p-lera").classList.add("active");
-            if (sp === "Даша" || (sp === "Имя" && hero === "Даша")) document.getElementById("p-dasha").classList.add("active");
-            if (sp === "Никита Клягин") document.getElementById("p-gopnik").classList.add("active");
-            if (sp === "Федя") document.getElementById("p-fedya").classList.add("active");
-            if (sp === "Саша (Брат)") document.getElementById("p-sasha").classList.add("active");
+            if (sceneKey === "olginka" || sceneKey === "beach") {
+                if (hero === "Лера") document.getElementById("p-lera").classList.add("active");
+                if (hero === "Даша") document.getElementById("p-dasha").classList.add("active");
+            } else if (sceneKey === "orbita") {
+                document.getElementById("p-gopnik").classList.add("active");
+            } else if (sceneKey === "leto") {
+                document.getElementById("p-dasha").classList.add("active");
+            } else if (sceneKey === "inside") {
+                document.getElementById("p-fedya").classList.add("active");
+            } else if (sceneKey === "niva") {
+                document.getElementById("p-sasha").classList.add("active");
+            } else if (sceneKey === "f1" || sceneKey === "f5" || sceneKey === "f7") {
+                document.getElementById("p-lera").classList.add("active");
+            }
             const box = document.getElementById("choices-box"); box.innerHTML = "";
             data.choices().forEach(c => { const btn = document.createElement("button"); btn.className = "choice-btn"; btn.innerText = c.t; btn.onclick = () => go(c.n); box.appendChild(btn); });
         }
